@@ -1,22 +1,43 @@
+{% load blog_tags %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
 	<title>{% block title %} {% endblock %}</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
 	<link rel="stylesheet" type="text/css" href="{% static "css/blog.css" %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
+
 <body>
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <div class="sidebar-nav">
+        <h2> My Blog </h2>
+				<h3>latest posts </h3>
+				{% show_latest_posts 3 %}
+
+				<h3>Most commented posts</h3>
+ 				{% get_most_commented_posts as most_commented_posts %}
+ 				<ul>
+ 				{% for post in most_commented_posts %}
+   				<li>
+     				<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+   				</li>
+ 				{% endfor %}
+ 				</ul>
+
+      </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
 	<div id="content">
 		{% block content %}
-			
 		{% endblock content %}
 	</div>
-
-	<!--
-	<div id="sidebar">
-		<h2> my blog </h2>
-			<p> this is my blog </p>
-	</div> 
-	//-->
+<p> this is my blog. I've written {% total_posts %} posts so far. </p>
+</div>
 </body>
 </html>
