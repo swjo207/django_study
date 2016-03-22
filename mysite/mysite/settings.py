@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'blog',
     'taggit',  # 장고 태깅 시스템 추가
-    'django.contrib.sites',
+    'django.contrib.sites', # 사이트맵 추가
     'django.contrib.sitemaps',
+    'haystack', # 검색 엔진 추가
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -76,6 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+# Email
+#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
@@ -84,6 +87,14 @@ EMAIL_HOST_PASSWORD = 'F94Vd081C8ce'
 DEFAULT_EMAIL_FROM = 'swjo207@gmail.com'
 EMAIL_USE_TLS = True
 
+# Search engine
+#
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/blog'
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
