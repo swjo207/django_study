@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'account',
+    'social.apps.django_app.default',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -89,6 +90,19 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+    'social.backends.facebook.Facebook2OAuth2',
+    'social.backends.twitter.TwitterOAuth',
+
+)
+SOCIAL_AUTH_FACEBOOK_KEY = '1667545513496075' # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '1871a88a0f965212d7a1919df2eb395f' # Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+SOCIAL_AUTH_TWITTER_KEY = 'mrqUuV7bSDY8bgt7B3uyVo9wT' # Twitter Consumer Key
+SOCIAL_AUTH_TWITTER_SECRET = 'WUZbVyUD32MrqqvFYDBlDSNfFYhP1rYay8CSAoUV5tflgapuE0' # Twitter Consumer Secret
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
