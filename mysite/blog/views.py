@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 
 from .models import Post, Comment
 from .forms import EmailPostForm, CommentForm
+from taggit.models import Tag
 
 class PostListView(ListView):
 	queryset = Post.published.all()
@@ -15,8 +16,16 @@ class PostListView(ListView):
 	template_name = 'blog/post/list.html'
 
 
-def post_list(request):
+def post_list(request, tag_slug=None):
 	object_list = Post.published.all()
+	tag = None
+
+	# tag_slug 새로운 파라미터 추가
+	# 태그가 존재하는 글을 필터링 한다.
+	if tag_slug:
+		tag = get_object_or_404(Tag, slug=tag_slug)
+		object_list = object_list.filter(tags__in=[tag])
+
 	paginator = Paginator(object_list,3) # 3 post in each page
 	page = request.GET.get('page')
 	try:
@@ -25,11 +34,12 @@ def post_list(request):
 		posts = paginator.page(1)
 	except EmptyPage:
 		posts = paginator.page(paginator.num_pages)
+	# tag 추가
 	return render(request,
 			'blog/post/list.html',
 			{'page': page,
-			'posts': posts}
-		)
+			'posts': posts,
+			'tag': tag})
 
 def post_detail(request, year, month, day, post):
 	post = get_object_or_404(Post, slug=post,

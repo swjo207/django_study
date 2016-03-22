@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 """
 Django settings for mysite project.
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'blog',
+    'taggit',  # 장고 태깅 시스템 추가
 ]
 
 MIDDLEWARE_CLASSES = [
