@@ -12,8 +12,7 @@
     </p>
     {% else %}
     <p>
-      please use the following form to log in:
-    </p>
+      please use the following form to log in: If you don't have an account <a href="{% url "register" %}">register here</a></p>
   {% endif %}
   <div class="login-form">
     <form action="{% url 'login' %}" method="post">
