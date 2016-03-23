@@ -19,7 +19,7 @@ class Category(models.Model):
                           args=[self.slug])
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='prodducts')
+    category = models.ForeignKey(Category, related_name='products')
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='prodducts/%Y/%m/%d', blank=True)

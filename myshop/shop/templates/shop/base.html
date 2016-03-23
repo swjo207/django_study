@@ -13,7 +13,17 @@
   </div>
   <div id="subheader">
   <div class="cart">
-    Your cart is empty.
+    {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+        당신의 카트:
+        <a href="{% url "cart:cart_detail" %}">
+        {{ total_items }} 아이템 ,
+        {{ cart.get_total_price }}원
+        </a>
+        {% else %}
+        당신의 카트는 비어 있습니다.
+        {% endif %}
+    {% endwith %}
   </div>
   </div>
   <div id="content">
